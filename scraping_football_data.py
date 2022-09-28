@@ -65,10 +65,9 @@ for i in range(np.size(team_urls)):
     
     
 # At this point start to add in more data to the df  
+ 
     
-# testing git    
-    
-    
+  
     #writing out df to csv
 #    os.makedirs('/Users/tom/Documents/python/football/team_stats/', exist_ok=True)  
 #    matches[0].to_csv('/Users/tom/Documents/python/football/team_stats/'+team_names_sorted[i]+'.csv')
