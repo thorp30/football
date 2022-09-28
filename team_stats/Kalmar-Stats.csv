@@ -1,0 +1,31 @@
+,Date,Time,Comp,Round,Day,Venue,Result,GF,GA,Opponent,Poss,Attendance,Captain,Formation,Referee,Match Report,Notes,Team
+0,2022-04-03,17:30,Allsvenskan,Matchweek 1,Sun,Home,L,0.0,1.0,Malmö,56.0,8347.0,Oliver Berg,4-3-3,Glenn Nyberg,Match Report,,Kalmar-Stats
+1,2022-04-10,15:00,Allsvenskan,Matchweek 2,Sun,Away,W,3.0,0.0,Varberg,59.0,2229.0,Oliver Berg,3-5-2,Granit Maqedonci,Match Report,,Kalmar-Stats
+2,2022-04-17,15:00,Allsvenskan,Matchweek 3,Sun,Home,W,2.0,0.0,Degerfors,54.0,5049.0,Oliver Berg,4-3-3,Fredrik Klitte,Match Report,,Kalmar-Stats
+3,2022-04-20,19:00,Allsvenskan,Matchweek 4,Wed,Away,L,0.0,1.0,Sundsvall,62.0,2050.0,Oliver Berg,4-3-3,Kaspar Sjöberg,Match Report,,Kalmar-Stats
+4,2022-04-26,19:00,Allsvenskan,Matchweek 5,Tue,Home,L,1.0,2.0,Norrköping,74.0,3673.0,Oliver Berg,3-4-3,Victor Wolf,Match Report,,Kalmar-Stats
+5,2022-05-02,19:00,Allsvenskan,Matchweek 6,Mon,Away,W,2.0,1.0,Göteborg,59.0,14147.0,Oliver Berg,3-4-3,Mohammed Al Hakim,Match Report,,Kalmar-Stats
+6,2022-05-08,17:30,Allsvenskan,Matchweek 7,Sun,Home,W,2.0,0.0,Hammarby,41.0,8768.0,Oliver Berg,4-3-3,Fredrik Klitte,Match Report,,Kalmar-Stats
+7,2022-05-15,15:00,Allsvenskan,Matchweek 8,Sun,Away,L,1.0,3.0,Häcken,58.0,3067.0,Oliver Berg,4-3-3,Victor Wolf,Match Report,,Kalmar-Stats
+8,2022-05-22,17:30,Allsvenskan,Matchweek 9,Sun,Home,W,1.0,0.0,Djurgården,64.0,7518.0,Oliver Berg,3-4-3,Adam Ladebäck,Match Report,,Kalmar-Stats
+9,2022-05-28,15:00,Allsvenskan,Matchweek 10,Sat,Away,D,1.0,1.0,Mjällby,70.0,3572.0,Oliver Berg,4-3-3,Bojan Pandzic,Match Report,,Kalmar-Stats
+10,2022-06-27,19:00,Allsvenskan,Matchweek 11,Mon,Home,W,1.0,0.0,Värnamo,51.0,6184.0,Oliver Berg,4-2-3-1,Victor Wolf,Match Report,,Kalmar-Stats
+11,2022-07-02,17:30,Allsvenskan,Matchweek 12,Sat,Away,D,1.0,1.0,Helsingborg,58.0,7104.0,Oliver Berg,4-3-3,Bojan Pandzic,Match Report,,Kalmar-Stats
+12,2022-07-10,17:30,Allsvenskan,Matchweek 13,Sun,Home,D,1.0,1.0,Sirius,61.0,6471.0,Oliver Berg,4-2-3-1,Joakim Östling,Match Report,,Kalmar-Stats
+13,2022-07-17,15:00,Allsvenskan,Matchweek 14,Sun,Away,L,0.0,1.0,AIK Stockholm,59.0,24769.0,Oliver Berg,4-3-3,Adam Ladebäck,Match Report,,Kalmar-Stats
+14,2022-07-24,17:30,Allsvenskan,Matchweek 15,Sun,Home,W,1.0,0.0,Elfsborg,57.0,7039.0,Oliver Berg,4-2-3-1,Fredrik Klitte,Match Report,,Kalmar-Stats
+15,2022-07-30,15:00,Allsvenskan,Matchweek 16,Sat,Away,L,1.0,2.0,Degerfors,74.0,4530.0,Oliver Berg,4-2-3-1,Glenn Nyberg,Match Report,,Kalmar-Stats
+16,2022-08-07,15:00,Allsvenskan,Matchweek 17,Sun,Home,W,1.0,0.0,AIK Stockholm,57.0,10024.0,Oliver Berg,4-2-3-1,Andreas Ekberg,Match Report,,Kalmar-Stats
+17,2022-08-14,15:00,Allsvenskan,Matchweek 18,Sun,Away,L,2.0,3.0,Djurgården,61.0,17107.0,Oliver Berg,4-3-3,Fredrik Klitte,Match Report,,Kalmar-Stats
+18,2022-08-22,19:00,Allsvenskan,Matchweek 19,Mon,Home,W,1.0,0.0,Göteborg,50.0,8260.0,Oliver Berg,4-3-3,Glenn Nyberg,Match Report,,Kalmar-Stats
+19,2022-08-28,17:30,Allsvenskan,Matchweek 20,Sun,Away,W,1.0,0.0,Malmö,45.0,17052.0,Oliver Berg,5-4-1,Mohammed Al Hakim,Match Report,,Kalmar-Stats
+20,2022-09-05,19:00,Allsvenskan,Matchweek 21,Mon,Home,W,1.0,0.0,Varberg,60.0,4490.0,Oliver Berg,3-4-3,Glenn Nyberg,Match Report,,Kalmar-Stats
+21,2022-09-12,19:00,Allsvenskan,Matchweek 22,Mon,Home,D,1.0,1.0,Häcken,52.0,6225.0,Oliver Berg,4-3-3,Fredrik Klitte,Match Report,,Kalmar-Stats
+22,2022-09-17,15:00,Allsvenskan,Matchweek 23,Sat,Away,D,2.0,2.0,Norrköping,67.0,6132.0,Oliver Berg,4-3-3,Kristoffer Karlsson,Match Report,,Kalmar-Stats
+23,2022-10-02,17:30,Allsvenskan,Matchweek 24,Sun,Home,,,,Helsingborg,,,,,,Head-to-Head,,Kalmar-Stats
+24,2022-10-09,15:00,Allsvenskan,Matchweek 25,Sun,Away,,,,Elfsborg,,,,,,Head-to-Head,,Kalmar-Stats
+25,2022-10-15,17:30,Allsvenskan,Matchweek 26,Sat,Away,,,,Värnamo,,,,,,Head-to-Head,,Kalmar-Stats
+26,2022-10-20,19:00,Allsvenskan,Matchweek 27,Thu,Home,,,,Mjällby,,,,,,Head-to-Head,,Kalmar-Stats
+27,2022-10-24,19:00,Allsvenskan,Matchweek 28,Mon,Away,,,,Sirius,,,,,,Head-to-Head,,Kalmar-Stats
+28,2022-10-30,17:30,Allsvenskan,Matchweek 29,Sun,Away,,,,Hammarby,,,,,,Head-to-Head,,Kalmar-Stats
+29,2022-11-06,15:00,Allsvenskan,Matchweek 30,Sun,Home,,,,Sundsvall,,,,,,Head-to-Head,,Kalmar-Stats

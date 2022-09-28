@@ -1,0 +1,31 @@
+,Date,Time,Comp,Round,Day,Venue,Result,GF,GA,Opponent,Poss,Attendance,Captain,Formation,Referee,Match Report,Notes,Team
+0,2022-04-02,15:00,Allsvenskan,Matchweek 1,Sat,Away,L,1.0,2.0,Hammarby,43.0,30216.0,Anthony van den Hurk,4-3-3,Adam Ladebäck,Match Report,,Helsingborg-Stats
+1,2022-04-10,15:00,Allsvenskan,Matchweek 2,Sun,Home,L,0.0,1.0,Göteborg,58.0,11407.0,Anthony van den Hurk,4-3-3,Victor Wolf,Match Report,,Helsingborg-Stats
+2,2022-04-17,17:30,Allsvenskan,Matchweek 3,Sun,Away,L,0.0,1.0,Sirius,51.0,4139.0,Anthony van den Hurk,4-3-3,Granit Maqedonci,Match Report,,Helsingborg-Stats
+3,2022-04-21,19:00,Allsvenskan,Matchweek 4,Thu,Home,W,1.0,0.0,Elfsborg,47.0,5137.0,Anthony van den Hurk,4-3-3,Andreas Ekberg,Match Report,,Helsingborg-Stats
+4,2022-04-24,17:30,Allsvenskan,Matchweek 5,Sun,Home,D,1.0,1.0,Häcken,50.0,5673.0,Anthony van den Hurk,4-2-3-1,Kaspar Sjöberg,Match Report,,Helsingborg-Stats
+5,2022-05-01,15:00,Allsvenskan,Matchweek 6,Sun,Away,L,1.0,2.0,Mjällby,56.0,3604.0,Anthony van den Hurk,4-3-3,Granit Maqedonci,Match Report,,Helsingborg-Stats
+6,2022-05-05,19:00,Allsvenskan,Matchweek 16,Thu,Away,D,2.0,2.0,Djurgården,32.0,14245.0,Anthony van den Hurk,4-3-3,Adam Ladebäck,Match Report,,Helsingborg-Stats
+7,2022-05-09,19:00,Allsvenskan,Matchweek 7,Mon,Home,L,0.0,1.0,Norrköping,58.0,6507.0,Anthony van den Hurk,4-3-3,Mohammed Al Hakim,Match Report,,Helsingborg-Stats
+8,2022-05-15,17:30,Allsvenskan,Matchweek 8,Sun,Away,L,1.0,2.0,Degerfors,60.0,2711.0,Anthony van den Hurk,4-3-3,Joakim Östling,Match Report,,Helsingborg-Stats
+9,2022-05-21,17:30,Allsvenskan,Matchweek 9,Sat,Home,L,1.0,4.0,Värnamo,55.0,5713.0,Anthony van den Hurk,4-3-3,Granit Maqedonci,Match Report,,Helsingborg-Stats
+10,2022-05-29,17:30,Allsvenskan,Matchweek 10,Sun,Home,L,1.0,2.0,AIK Stockholm,40.0,8713.0,Anthony van den Hurk,4-3-3,Kaspar Sjöberg,Match Report,,Helsingborg-Stats
+11,2022-06-27,19:00,Allsvenskan,Matchweek 11,Mon,Away,L,1.0,2.0,Malmö,27.0,20231.0,Viljormur Davidsen,4-2-3-1,Glenn Nyberg,Match Report,,Helsingborg-Stats
+12,2022-07-02,17:30,Allsvenskan,Matchweek 12,Sat,Home,D,1.0,1.0,Kalmar,42.0,7104.0,Viljormur Davidsen,4-4-2,Bojan Pandzic,Match Report,,Helsingborg-Stats
+13,2022-07-11,19:00,Allsvenskan,Matchweek 13,Mon,Home,L,0.0,2.0,Djurgården,29.0,10127.0,Viljormur Davidsen,4-2-3-1,Granit Maqedonci,Match Report,,Helsingborg-Stats
+14,2022-07-18,19:00,Allsvenskan,Matchweek 14,Mon,Away,D,0.0,0.0,Varberg,55.0,3386.0,Viljormur Davidsen,4-2-3-1,Bojan Pandzic,Match Report,,Helsingborg-Stats
+15,2022-07-24,15:00,Allsvenskan,Matchweek 15,Sun,Home,W,1.0,0.0,Sundsvall,54.0,6718.0,Viljormur Davidsen,4-2-3-1,Bojan Pandzic,Match Report,,Helsingborg-Stats
+16,2022-08-08,19:00,Allsvenskan,Matchweek 17,Mon,Away,L,0.0,5.0,Häcken,31.0,4078.0,Viljormur Davidsen,4-2-3-1,Joakim Östling,Match Report,,Helsingborg-Stats
+17,2022-08-13,17:30,Allsvenskan,Matchweek 18,Sat,Home,D,0.0,0.0,Sirius,40.0,5835.0,Viljormur Davidsen,4-2-3-1,Victor Wolf,Match Report,,Helsingborg-Stats
+18,2022-08-21,17:30,Allsvenskan,Matchweek 19,Sun,Away,W,2.0,1.0,Sundsvall,51.0,3725.0,Viljormur Davidsen,4-3-3,Kaspar Sjöberg,Match Report,,Helsingborg-Stats
+19,2022-08-28,17:30,Allsvenskan,Matchweek 20,Sun,Home,L,0.0,1.0,Mjällby,45.0,8234.0,Viljormur Davidsen,4-3-3,Glenn Nyberg,Match Report,,Helsingborg-Stats
+20,2022-09-05,19:00,Allsvenskan,Matchweek 21,Mon,Away,L,2.0,3.0,Värnamo,50.0,4453.0,Viljormur Davidsen,4-3-3,Adam Ladebäck,Match Report,,Helsingborg-Stats
+21,2022-09-12,19:10,Allsvenskan,Matchweek 22,Mon,Away,W,3.0,1.0,Göteborg,39.0,12581.0,Viljormur Davidsen,4-4-2,Andreas Ekberg,Match Report,,Helsingborg-Stats
+22,2022-09-18,15:00,Allsvenskan,Matchweek 23,Sun,Home,L,1.0,2.0,Malmö,45.0,15800.0,Viljormur Davidsen,4-3-3,Mohammed Al Hakim,Match Report,,Helsingborg-Stats
+23,2022-10-02,17:30,Allsvenskan,Matchweek 24,Sun,Away,,,,Kalmar,,,,,,Head-to-Head,,Helsingborg-Stats
+24,2022-10-09,17:30,Allsvenskan,Matchweek 25,Sun,Away,,,,AIK Stockholm,,,,,,Head-to-Head,,Helsingborg-Stats
+25,2022-10-15,15:00,Allsvenskan,Matchweek 26,Sat,Home,,,,Varberg,,,,,,Head-to-Head,,Helsingborg-Stats
+26,2022-10-19,19:00,Allsvenskan,Matchweek 27,Wed,Away,,,,Norrköping,,,,,,Head-to-Head,,Helsingborg-Stats
+27,2022-10-23,15:00,Allsvenskan,Matchweek 28,Sun,Home,,,,Degerfors,,,,,,Head-to-Head,,Helsingborg-Stats
+28,2022-10-31,19:00,Allsvenskan,Matchweek 29,Mon,Away,,,,Elfsborg,,,,,,Head-to-Head,,Helsingborg-Stats
+29,2022-11-06,15:00,Allsvenskan,Matchweek 30,Sun,Home,,,,Hammarby,,,,,,Head-to-Head,,Helsingborg-Stats

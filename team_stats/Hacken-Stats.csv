@@ -1,0 +1,31 @@
+,Date,Time,Comp,Round,Day,Venue,Result,GF,GA,Opponent,Poss,Attendance,Captain,Formation,Referee,Match Report,Notes,Team
+0,2022-04-02,17:30,Allsvenskan,Matchweek 1,Sat,Home,W,4.0,2.0,AIK Stockholm,50.0,6117.0,Samuel Gustafson,4-3-3,Andreas Ekberg,Match Report,,Hacken-Stats
+1,2022-04-09,17:30,Allsvenskan,Matchweek 2,Sat,Away,W,2.0,1.0,Degerfors,57.0,802.0,Samuel Gustafson,4-3-3,Adam Ladebäck,Match Report,,Hacken-Stats
+2,2022-04-17,17:30,Allsvenskan,Matchweek 3,Sun,Home,L,0.0,2.0,Göteborg,67.0,6278.0,Samuel Gustafson,4-3-3,Glenn Nyberg,Match Report,,Hacken-Stats
+3,2022-04-20,19:00,Allsvenskan,Matchweek 4,Wed,Away,D,1.0,1.0,Norrköping,43.0,5598.0,Even Hovland,4-3-3,Granit Maqedonci,Match Report,,Hacken-Stats
+4,2022-04-24,17:30,Allsvenskan,Matchweek 5,Sun,Away,D,1.0,1.0,Helsingborg,50.0,5673.0,Samuel Gustafson,4-3-3,Kaspar Sjöberg,Match Report,,Hacken-Stats
+5,2022-05-01,17:30,Allsvenskan,Matchweek 6,Sun,Home,W,3.0,1.0,Varberg,60.0,2286.0,Samuel Gustafson,4-3-3,Joakim Östling,Match Report,,Hacken-Stats
+6,2022-05-09,19:00,Allsvenskan,Matchweek 7,Mon,Away,W,2.0,1.0,Värnamo,49.0,2627.0,Samuel Gustafson,4-3-3,Kristoffer Karlsson,Match Report,,Hacken-Stats
+7,2022-05-15,15:00,Allsvenskan,Matchweek 8,Sun,Home,W,3.0,1.0,Kalmar,42.0,3067.0,Samuel Gustafson,4-3-3,Victor Wolf,Match Report,,Hacken-Stats
+8,2022-05-22,17:30,Allsvenskan,Matchweek 9,Sun,Away,W,2.0,1.0,Malmö,38.0,18519.0,Samuel Gustafson,4-3-3,Fredrik Klitte,Match Report,,Hacken-Stats
+9,2022-05-28,17:00,Allsvenskan,Matchweek 10,Sat,Home,W,4.0,3.0,Sirius,42.0,3225.0,Samuel Gustafson,4-3-3,Granit Maqedonci,Match Report,,Hacken-Stats
+10,2022-06-26,15:00,Allsvenskan,Matchweek 11,Sun,Away,D,2.0,2.0,Hammarby,43.0,22681.0,Samuel Gustafson,4-3-3,Fredrik Klitte,Match Report,,Hacken-Stats
+11,2022-07-03,17:30,Allsvenskan,Matchweek 12,Sun,Home,D,1.0,1.0,Elfsborg,59.0,5476.0,Samuel Gustafson,4-5-1,Glenn Nyberg,Match Report,,Hacken-Stats
+12,2022-07-10,15:00,Allsvenskan,Matchweek 13,Sun,Away,W,2.0,1.0,Mjällby,43.0,4314.0,Samuel Gustafson,4-3-3,Adam Ladebäck,Match Report,,Hacken-Stats
+13,2022-07-18,19:00,Allsvenskan,Matchweek 14,Mon,Away,W,5.0,1.0,Sundsvall,70.0,3573.0,Samuel Gustafson,4-3-3,Kristoffer Karlsson,Match Report,,Hacken-Stats
+14,2022-07-24,17:30,Allsvenskan,Matchweek 15,Sun,Home,L,1.0,2.0,Djurgården,49.0,6316.0,Samuel Gustafson,4-3-3,Andreas Ekberg,Match Report,,Hacken-Stats
+15,2022-07-31,15:00,Allsvenskan,Matchweek 16,Sun,Away,D,4.0,4.0,Elfsborg,59.0,5741.0,Samuel Gustafson,4-3-3,Mohammed Al Hakim,Match Report,,Hacken-Stats
+16,2022-08-08,19:00,Allsvenskan,Matchweek 17,Mon,Home,W,5.0,0.0,Helsingborg,69.0,4078.0,Samuel Gustafson,4-3-3,Joakim Östling,Match Report,,Hacken-Stats
+17,2022-08-15,19:00,Allsvenskan,Matchweek 18,Mon,Home,W,1.0,0.0,Mjällby,57.0,2622.0,Samuel Gustafson,4-3-3,Granit Maqedonci,Match Report,,Hacken-Stats
+18,2022-08-22,19:00,Allsvenskan,Matchweek 19,Mon,Away,W,1.0,0.0,Sirius,50.0,4622.0,Samuel Gustafson,4-3-3,Adam Ladebäck,Match Report,,Hacken-Stats
+19,2022-08-27,15:00,Allsvenskan,Matchweek 20,Sat,Home,W,4.0,1.0,Värnamo,54.0,3624.0,Samuel Gustafson,4-3-3,Kristoffer Karlsson,Match Report,,Hacken-Stats
+20,2022-09-04,15:00,Allsvenskan,Matchweek 21,Sun,Home,D,2.0,2.0,Degerfors,65.0,4186.0,Samuel Gustafson,4-3-3,Kaspar Sjöberg,Match Report,,Hacken-Stats
+21,2022-09-12,19:00,Allsvenskan,Matchweek 22,Mon,Away,D,1.0,1.0,Kalmar,48.0,6225.0,Samuel Gustafson,4-3-3,Fredrik Klitte,Match Report,,Hacken-Stats
+22,2022-09-17,15:00,Allsvenskan,Matchweek 23,Sat,Home,D,1.0,1.0,Hammarby,52.0,6316.0,Samuel Gustafson,4-3-3,Victor Wolf,Match Report,,Hacken-Stats
+23,2022-10-02,15:00,Allsvenskan,Matchweek 24,Sun,Away,,,,Varberg,,,,,,Head-to-Head,,Hacken-Stats
+24,2022-10-09,17:30,Allsvenskan,Matchweek 25,Sun,Away,,,,Djurgården,,,,,,Head-to-Head,,Hacken-Stats
+25,2022-10-15,15:00,Allsvenskan,Matchweek 26,Sat,Home,,,,Sundsvall,,,,,,Head-to-Head,,Hacken-Stats
+26,2022-10-19,19:00,Allsvenskan,Matchweek 27,Wed,Away,,,,AIK Stockholm,,,,,,Head-to-Head,,Hacken-Stats
+27,2022-10-23,17:30,Allsvenskan,Matchweek 28,Sun,Home,,,,Malmö,,,,,,Head-to-Head,,Hacken-Stats
+28,2022-10-30,15:00,Allsvenskan,Matchweek 29,Sun,Away,,,,Göteborg,,,,,,Head-to-Head,,Hacken-Stats
+29,2022-11-06,15:00,Allsvenskan,Matchweek 30,Sun,Home,,,,Norrköping,,,,,,Head-to-Head,,Hacken-Stats

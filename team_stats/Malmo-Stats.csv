@@ -1,0 +1,45 @@
+,Date,Time,Comp,Round,Day,Venue,Result,GF,GA,Opponent,Poss,Attendance,Captain,Formation,Referee,Match Report,Notes,Team
+0,2022-04-03,17:30,Allsvenskan,Matchweek 1,Sun,Away,W,1.0,0.0,Kalmar,44.0,8347.0,Anders Christiansen,4-3-3,Glenn Nyberg,Match Report,,Malmo-Stats
+1,2022-04-11,19:10,Allsvenskan,Matchweek 2,Mon,Home,D,1.0,1.0,Elfsborg,66.0,19405.0,Anders Christiansen,4-3-3,Fredrik Klitte,Match Report,,Malmo-Stats
+2,2022-04-17,15:00,Allsvenskan,Matchweek 3,Sun,Home,W,3.0,0.0,AIK Stockholm,49.0,20122.0,Anders Christiansen,4-3-3,Mohammed Al Hakim,Match Report,,Malmo-Stats
+3,2022-04-21,19:00,Allsvenskan,Matchweek 4,Thu,Away,D,0.0,0.0,Värnamo,60.0,4930.0,Anders Christiansen,4-3-3,Victor Wolf,Match Report,,Malmo-Stats
+4,2022-04-25,19:10,Allsvenskan,Matchweek 5,Mon,Home,W,1.0,0.0,Göteborg,67.0,19785.0,Anders Christiansen,4-3-3,Andreas Ekberg,Match Report,,Malmo-Stats
+5,2022-05-02,19:10,Allsvenskan,Matchweek 6,Mon,Away,D,0.0,0.0,Hammarby,46.0,29696.0,Lasse Nielsen,3-5-2,Glenn Nyberg,Match Report,,Malmo-Stats
+6,2022-05-07,17:30,Allsvenskan,Matchweek 7,Sat,Home,W,2.0,0.0,Mjällby,60.0,19812.0,Lasse Nielsen,4-3-3,Bojan Pandzic,Match Report,,Malmo-Stats
+7,2022-05-11,19:00,Allsvenskan,Matchweek 16,Wed,Away,L,0.0,2.0,AIK Stockholm,61.0,25153.0,Ola Toivonen,4-3-3,Adam Ladebäck,Match Report,,Malmo-Stats
+8,2022-05-16,19:10,Allsvenskan,Matchweek 8,Mon,Away,L,0.0,4.0,Djurgården,49.0,20550.0,Erdal Rakip,4-3-3,Mohammed Al Hakim,Match Report,,Malmo-Stats
+9,2022-05-22,17:30,Allsvenskan,Matchweek 9,Sun,Home,L,1.0,2.0,Häcken,62.0,18519.0,Lasse Nielsen,3-4-1-2,Fredrik Klitte,Match Report,,Malmo-Stats
+10,2022-05-29,15:00,Allsvenskan,Matchweek 10,Sun,Away,W,2.0,0.0,Degerfors,57.0,2801.0,Lasse Nielsen,4-2-3-1,Victor Wolf,Match Report,,Malmo-Stats
+11,2022-06-27,19:00,Allsvenskan,Matchweek 11,Mon,Home,W,2.0,1.0,Helsingborg,73.0,20231.0,Lasse Nielsen,4-2-3-1,Glenn Nyberg,Match Report,,Malmo-Stats
+12,2022-07-01,19:00,Allsvenskan,Matchweek 12,Fri,Away,L,1.0,2.0,Sundsvall,77.0,3251.0,Anders Christiansen,4-3-3,Victor Wolf,Match Report,,Malmo-Stats
+13,2022-07-05,19:00,Champions Lg,First qualifying round,Tue,Home,W,3.0,2.0,is KV,68.0,11830.0,Anders Christiansen,3-5-2,Dumitru Muntean,Match Report,Leg 1 of 2,Malmo-Stats
+14,2022-07-09,15:00,Allsvenskan,Matchweek 13,Sat,Home,W,3.0,0.0,Varberg,67.0,15427.0,Lasse Nielsen,3-5-2,Kristoffer Karlsson,Match Report,,Malmo-Stats
+15,2022-07-12,19:30,Champions Lg,First qualifying round,Tue,Away,D,3.0,3.0,is KV,49.0,1080.0,Anders Christiansen,3-5-2,John Beaton,Match Report,Leg 2 of 2; Malmö won,Malmo-Stats
+16,2022-07-16,15:00,Allsvenskan,Matchweek 14,Sat,Away,W,2.0,0.0,Norrköping,54.0,10207.0,Lasse Nielsen,4-2-3-1,Mohammed Al Hakim,Match Report,,Malmo-Stats
+17,2022-07-19,19:00,Champions Lg,Second qualifying round,Tue,Away,L,0.0,1.0,lt Žalgiris,67.0,4918.0,Anders Christiansen,4-2-3-1,Georgi Kabakov,Match Report,Leg 1 of 2,Malmo-Stats
+18,2022-07-23,15:00,Allsvenskan,Matchweek 15,Sat,Home,W,3.0,1.0,Sirius,68.0,16952.0,Anders Christiansen,4-2-3-1,Granit Maqedonci,Match Report,,Malmo-Stats
+19,2022-07-27,19:00,Champions Lg,Second qualifying round,Wed,Home,L,0.0,2.0,lt Žalgiris,70.0,17234.0,Anders Christiansen,4-3-3,Kristo Tohver,Match Report,Leg 2 of 2; Žalgiris won,Malmo-Stats
+20,2022-08-04,19:00,Europa Lg,Third qualifying round,Thu,Home,W,3.0,0.0,lu F91 Dudelange,67.0,11172.0,Lasse Nielsen,4-1-4-1,Enea Jorgji,Match Report,Leg 1 of 2,Malmo-Stats
+21,2022-08-07,15:00,Allsvenskan,Matchweek 17,Sun,Away,L,1.0,2.0,Sirius,52.0,5132.0,Anders Christiansen,4-5-1,Bojan Pandzic,Match Report,,Malmo-Stats
+22,2022-08-11,20:00,Europa Lg,Third qualifying round,Thu,Away,D,2.0,2.0,lu F91 Dudelange,46.0,898.0,Anders Christiansen,4-3-3,Ricardo de Burgos,Match Report,Leg 2 of 2; Malmö won,Malmo-Stats
+23,2022-08-14,15:00,Allsvenskan,Matchweek 18,Sun,Home,W,3.0,1.0,Sundsvall,70.0,14205.0,Lasse Nielsen,4-3-3,Adam Ladebäck,Match Report,,Malmo-Stats
+24,2022-08-18,19:00,Europa Lg,Play-off round,Thu,Home,W,3.0,1.0,tr Sivasspor,56.0,12167.0,Anders Christiansen,4-2-3-1,William Collum,Match Report,Leg 1 of 2,Malmo-Stats
+25,2022-08-21,15:00,Allsvenskan,Matchweek 19,Sun,Away,D,1.0,1.0,Mjällby,64.0,6000.0,Anders Christiansen,4-3-3,Fredrik Klitte,Match Report,,Malmo-Stats
+26,2022-08-25,20:00,Europa Lg,Play-off round,Thu,Away,W,2.0,0.0,tr Sivasspor,42.0,16873.0,Anders Christiansen,4-2-3-1,Srđan Jovanović,Match Report,Leg 2 of 2; Malmö won,Malmo-Stats
+27,2022-08-28,17:30,Allsvenskan,Matchweek 20,Sun,Home,L,0.0,1.0,Kalmar,55.0,17052.0,Lasse Nielsen,4-3-3,Mohammed Al Hakim,Match Report,,Malmo-Stats
+28,2022-09-04,17:30,Allsvenskan,Matchweek 21,Sun,Away,L,2.0,3.0,Elfsborg,69.0,7532.0,Anders Christiansen,4-3-3,Victor Wolf,Match Report,,Malmo-Stats
+29,2022-09-08,18:45,Europa Lg,Group stage,Thu,Home,L,0.0,2.0,pt Braga,45.0,13721.0,Anders Christiansen,3-4-3,Duje Strukan,Match Report,,Malmo-Stats
+30,2022-09-11,17:30,Allsvenskan,Matchweek 22,Sun,Home,W,2.0,1.0,Norrköping,66.0,14751.0,Anders Christiansen,3-4-3,Bojan Pandzic,Match Report,,Malmo-Stats
+31,2022-09-15,21:00,Europa Lg,Group stage,Thu,Away,L,2.0,3.0,be Union SG,37.0,4373.0,Lasse Nielsen,4-1-4-1,Bartosz Frankowski,Match Report,,Malmo-Stats
+32,2022-09-18,15:00,Allsvenskan,Matchweek 23,Sun,Away,W,2.0,1.0,Helsingborg,55.0,15800.0,Lasse Nielsen,4-3-3,Mohammed Al Hakim,Match Report,,Malmo-Stats
+33,2022-10-01,15:00,Allsvenskan,Matchweek 24,Sat,Home,,,,Hammarby,,,,,,Head-to-Head,,Malmo-Stats
+34,2022-10-06,18:45,Europa Lg,Group stage,Thu,Home,,,,de Union Berlin,,,,,,Head-to-Head,,Malmo-Stats
+35,2022-10-09,15:00,Allsvenskan,Matchweek 25,Sun,Home,,,,Värnamo,,,,,,Head-to-Head,,Malmo-Stats
+36,2022-10-13,21:00,Europa Lg,Group stage,Thu,Away,,,,de Union Berlin,,,,,,Head-to-Head,,Malmo-Stats
+37,2022-10-17,19:10,Allsvenskan,Matchweek 26,Mon,Away,,,,Göteborg,,,,,,Head-to-Head,,Malmo-Stats
+38,2022-10-20,19:00,Allsvenskan,Matchweek 27,Thu,Home,,,,Djurgården,,,,,,Head-to-Head,,Malmo-Stats
+39,2022-10-23,17:30,Allsvenskan,Matchweek 28,Sun,Away,,,,Häcken,,,,,,Head-to-Head,,Malmo-Stats
+40,2022-10-27,18:45,Europa Lg,Group stage,Thu,Home,,,,be Union SG,,,,,,Head-to-Head,,Malmo-Stats
+41,2022-10-30,17:30,Allsvenskan,Matchweek 29,Sun,Away,,,,Varberg,,,,,,Head-to-Head,,Malmo-Stats
+42,2022-11-03,20:00,Europa Lg,Group stage,Thu,Away,,,,pt Braga,,,,,,Head-to-Head,,Malmo-Stats
+43,2022-11-06,15:00,Allsvenskan,Matchweek 30,Sun,Home,,,,Degerfors,,,,,,Head-to-Head,,Malmo-Stats
