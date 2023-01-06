@@ -18,7 +18,7 @@ import pandas as pd
 import numpy as np
 import requests 
 from bs4 import BeautifulSoup
-import os
+import time 
 
 """ 
 
@@ -94,7 +94,7 @@ for i in range(np.size(team_urls)):
     temp_shooting = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2022-2023/matchlogs/all_comps/shooting/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
     temp_shooting.columns = temp_shooting.columns.droplevel()
     try:
-        team_data = matches.merge(temp_shooting[["Date", "Sh", "SoT", "Dist", "G-xG", "PK", "xG"]], on="Date")
+        team_data = matches.merge(temp_shooting[["Date", "Sh", "SoT", "Dist", "G-xG", "xG"]], on="Date")
     except ValueError:
         continue
 
@@ -103,7 +103,7 @@ for i in range(np.size(team_urls)):
     temp_pass = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2022-2023/matchlogs/all_comps/passing/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
     temp_pass.columns = temp_pass.columns.droplevel()
     try:
-        team_data = team_data.merge(temp_pass[["Date", "Cmp", "KP", "1/3", "PPA", "Prog"]], on="Date")
+        team_data = team_data.merge(temp_pass[["Date", "Cmp", "xA", "KP", "1/3", "PPA", "Prog"]], on="Date")
     except ValueError:
         continue
 
@@ -130,7 +130,7 @@ for i in range(np.size(team_urls)):
     temp_defence = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2022-2023/matchlogs/all_comps/defense/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
     temp_defence.columns = temp_defence.columns.droplevel()
     try:
-        team_data = team_data.merge(temp_defence[["Date", "TklW", "Press", "Succ", "Int", "Clr", "Err"]], on="Date")
+        team_data = team_data.merge(temp_defence[["Date", "Int", "Clr", "Err"]], on="Date")
     except ValueError:
         continue  
     
@@ -142,12 +142,12 @@ for i in range(np.size(team_urls)):
     team_data["Team"] = squad_team[i][1].replace("-", " ")
     all_matches.append(team_data)
     print(i)
-
+    time.sleep(5)
 
 #Concatenate all seperate dataframes relating to each individual team into 1 large df.
 match_df = pd.concat(all_matches)
 
-match_df.to_csv("matches.csv")
+#match_df.to_csv("matches.csv")
 
 
 # Next thing is to change the titles of the df items, so that they are more readable
