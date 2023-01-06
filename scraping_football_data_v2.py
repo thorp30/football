@@ -79,7 +79,7 @@ dataframes which are then concatenated at the end to create one df with all data
 
 06/01/2023
 Due to a HTTP request error, I have split this up into 4 sepearte loops, as 1 loop of 20 teams was too much. All
-loops still append the df to the all_matches empty array.
+loops still append the df to the all_matches empty array. Sleep set 10 seems to stop this error from happening. 
 
 """
 
@@ -147,7 +147,7 @@ for i in np.arange(0,5):
     team_data["Team"] = squad_team[i][1].replace("-", " ")
     all_matches.append(team_data)
     print(i)
-    time.sleep(5)
+    time.sleep(10)
 
 
 
@@ -214,7 +214,7 @@ for i in np.arange(5,10):
     team_data["Team"] = squad_team[i][1].replace("-", " ")
     all_matches.append(team_data)
     print(i)
-    time.sleep(5)
+    time.sleep(10)
 
 
 
@@ -281,7 +281,7 @@ for i in np.arange(10,15):
     team_data["Team"] = squad_team[i][1].replace("-", " ")
     all_matches.append(team_data)
     print(i)
-    time.sleep(5)
+    time.sleep(10)
 
 
 
@@ -348,34 +348,21 @@ for i in np.arange(15,20):
     team_data["Team"] = squad_team[i][1].replace("-", " ")
     all_matches.append(team_data)
     print(i)
-    time.sleep(5)
+    time.sleep(10)
 
 #Concatenate all seperate dataframes relating to each individual team into 1 large df.
 match_df = pd.concat(all_matches)
 
-#Save initial output df as and post process in seperate analysis script. Can get HTTPError if make too many requests, so save as soon as file 
-#created. 
-
-#Save final df as a csv
-#match_df.to_csv("matches.csv")
 
 #Drop columns that are not needed
 match_df_clean = match_df.drop(columns=['Captain','Formation','Referee','Match Report', 'Notes'])
 
-#Add in rolling stats to represent form (convert WLD to 3,0,1), gf, ga, poss
 
+#Save initial output df as and post process in seperate analysis script. Can get HTTPError if make too many requests, so save as soon as file 
+#created and dropped initial columns not needed. 
 
-
-#Code relevant variables into numbers 
-
-
-
-
-
-
-
-
-
+#Save final df as a csv
+match_df_clean.to_csv(r"C:\Users\tt13\football\matches_20230106.csv") #append today's date
 
 
 
