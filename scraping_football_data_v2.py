@@ -353,16 +353,11 @@ for i in np.arange(15,20):
 #Concatenate all seperate dataframes relating to each individual team into 1 large df.
 match_df = pd.concat(all_matches)
 
-
-#Drop columns that are not needed
-match_df_clean = match_df.drop(columns=['Captain','Formation','Referee','Match Report', 'Notes'])
-
-
 #Save initial output df as and post process in seperate analysis script. Can get HTTPError if make too many requests, so save as soon as file 
 #created and dropped initial columns not needed. 
 
 #Save final df as a csv
-match_df_clean.to_csv(r"C:\Users\tt13\football\matches_20230106.csv") #append today's date
+match_df.to_csv(r"C:\Users\tt13\football\matches_20230106.csv") #append today's date
 
 
 
