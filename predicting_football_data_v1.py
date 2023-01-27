@@ -367,15 +367,21 @@ matches_rolling df to create predictions.
 
 #Create a dataframe with relevent column headers
 future_matches = pd.DataFrame(columns=[predictors])
+grouped_matches_pred = matches_rolling.groupby("Team")
 
-#Calculate rolling stats 
 
-test_team = matches_rolling[matches_rolling["Team"] == "Arsenal"].sort_values("Date")
+#create a dataframe of last 3 weeks of games
+recent_results = matches_rolling[matches_rolling["Date"] > '2023-01-10']
+print(recent_results["Team"].value_counts())
 
-test_gf_average = test_team['GF_rolling']
-test_gf_average_2 = np.mean(test_gf_average[len(test_gf_average)-3:])
+future_matches = recent_results.groupby("Team")[predictors].mean()
 
-#Work out all the columns I need to create and add these to future matches - it should be 20 rows. one for each team
-#Need to create a team column for each team, opponant 
+#next step is to print out opposition code so you know who each team's number, then fill in the home/away and opposition code. 
+
+#Then append these onto the end of matches rolling and create a new df that includes all past data, and some future data. 
+
+#Then re run the final steps of predicting function with new data. 
+
+
 
 
