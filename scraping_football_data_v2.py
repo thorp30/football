@@ -357,7 +357,7 @@ match_df = pd.concat(all_matches)
 #created and dropped initial columns not needed. 
 
 #Save final df as a csv
-match_df.to_csv(r"C:\Users\tt13\football\matches_20230106.csv") #append today's date
+match_df.to_csv(r"C:\Users\tt13\football\matches_20230126.csv") #append today's date
 
 
 
