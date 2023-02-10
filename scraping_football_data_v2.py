@@ -108,7 +108,7 @@ for i in np.arange(0,5):
     temp_pass = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2022-2023/matchlogs/all_comps/passing/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
     temp_pass.columns = temp_pass.columns.droplevel()
     try:
-        team_data = team_data.merge(temp_pass[["Date", "Cmp", "xA", "KP", "1/3", "PPA", "Prog"]], on="Date")
+        team_data = team_data.merge(temp_pass[["Date", "Cmp", "xA", "KP", "1/3", "PPA", "PrgP"]], on="Date")
     except ValueError:
         continue
 
@@ -175,7 +175,7 @@ for i in np.arange(5,10):
     temp_pass = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2022-2023/matchlogs/all_comps/passing/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
     temp_pass.columns = temp_pass.columns.droplevel()
     try:
-        team_data = team_data.merge(temp_pass[["Date", "Cmp", "xA", "KP", "1/3", "PPA", "Prog"]], on="Date")
+        team_data = team_data.merge(temp_pass[["Date", "Cmp", "xA", "KP", "1/3", "PPA", "PrgP"]], on="Date")
     except ValueError:
         continue
 
@@ -242,7 +242,7 @@ for i in np.arange(10,15):
     temp_pass = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2022-2023/matchlogs/all_comps/passing/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
     temp_pass.columns = temp_pass.columns.droplevel()
     try:
-        team_data = team_data.merge(temp_pass[["Date", "Cmp", "xA", "KP", "1/3", "PPA", "Prog"]], on="Date")
+        team_data = team_data.merge(temp_pass[["Date", "Cmp", "xA", "KP", "1/3", "PPA", "PrgP"]], on="Date")
     except ValueError:
         continue
 
@@ -309,7 +309,7 @@ for i in np.arange(15,20):
     temp_pass = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2022-2023/matchlogs/all_comps/passing/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
     temp_pass.columns = temp_pass.columns.droplevel()
     try:
-        team_data = team_data.merge(temp_pass[["Date", "Cmp", "xA", "KP", "1/3", "PPA", "Prog"]], on="Date")
+        team_data = team_data.merge(temp_pass[["Date", "Cmp", "xA", "KP", "1/3", "PPA", "PrgP"]], on="Date")
     except ValueError:
         continue
 
@@ -357,7 +357,7 @@ match_df = pd.concat(all_matches)
 #created and dropped initial columns not needed. 
 
 #Save final df as a csv
-match_df.to_csv(r"C:\Users\tt13\football\matches_20230126.csv") #append today's date
+match_df.to_csv(r"C:\Users\tt13\football\matches_20230210.csv") #append today's date
 
 
 
