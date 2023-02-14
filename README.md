@@ -1,4 +1,4 @@
-# football
+# Predicting Premier League Football
 
 A project to scrape football data from the internet using Python, and then undertake data wrangling, feature selection, performance estimates (k-fold cross validation), machine learning evaluation, and machine learning prediction: 
 
