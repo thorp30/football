@@ -51,7 +51,7 @@ from sklearn.ensemble import AdaBoostClassifier
 from sklearn.ensemble import GradientBoostingClassifier
 
 #read in previously made csv file
-matches = pd.read_csv(r"C:\Users\tt13\football\matches_20230210.csv", index_col=0)
+matches = pd.read_csv(r"C:\Users\tt13\football\matches_20230214.csv", index_col=0)
 
 
 """
@@ -419,8 +419,8 @@ full_matches_dataset = pd.concat([matches_rolling_short,future_matches_predictor
 
 #Create predicting function 
 def make_future_predictions(data, predictors):
-    train = data[data["Date"] < '2023-02-09']
-    test = data[data["Date"] > '2023-02-09']
+    train = data[data["Date"] < '2023-02-13']
+    test = data[data["Date"] > '2023-02-13']
     etc.fit(train[predictors], train["target"])
     preds = etc.predict(test[predictors])
     combined = pd.DataFrame(dict(actual=test["target"], predicted=preds), index=test.index)
@@ -431,7 +431,7 @@ def make_future_predictions(data, predictors):
 combined, error = make_future_predictions(full_matches_dataset, predictors)
 
 #Add some more useful information to the predictions for better understanding
-combined = combined.merge(full_matches_dataset[full_matches_dataset["Date"] > '2023-02-09'][["Date", "Team", "Opponent"]], left_index=True, right_index=True)
+combined = combined.merge(full_matches_dataset[full_matches_dataset["Date"] > '2023-02-13'][["Date", "Team", "Opponent"]], left_index=True, right_index=True)
 
 #Drop actual - as this has not happened
 combined = combined.drop("actual",axis=1)

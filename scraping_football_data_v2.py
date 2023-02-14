@@ -353,11 +353,14 @@ for i in np.arange(15,20):
 #Concatenate all seperate dataframes relating to each individual team into 1 large df.
 match_df = pd.concat(all_matches)
 
+#Print how many games each team have played to check this is up to date
+print(match_df["Team"].value_counts())
+
 #Save initial output df as and post process in seperate analysis script. Can get HTTPError if make too many requests, so save as soon as file 
 #created and dropped initial columns not needed. 
 
 #Save final df as a csv
-match_df.to_csv(r"C:\Users\tt13\football\matches_20230210.csv") #append today's date
+match_df.to_csv(r"C:\Users\tt13\football\matches_20230214.csv") #append today's date
 
 
 
