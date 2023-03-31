@@ -28,6 +28,7 @@ This script:
 import pandas as pd
 import numpy as np
 from matplotlib import pyplot
+import os
 
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.ensemble import RandomForestClassifier
@@ -50,8 +51,12 @@ from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.ensemble import AdaBoostClassifier
 from sklearn.ensemble import GradientBoostingClassifier
 
-#read in previously made csv file
-matches = pd.read_csv(r"C:\Users\tt13\football\matches_20230214.csv", index_col=0)
+#read in previously made csv file - work 
+# matches = pd.read_csv(r"C:\Users\tt13\football\matches_20230214.csv", index_col=0)
+
+#read in previously made csv file - home 
+matches = pd.read_csv('/Users/tom/Documents/python/football/football/matches_20230331.csv', index_col=0)
+
 
 
 """
@@ -315,7 +320,7 @@ https://github.com/dataquestio/project-walkthroughs/blob/master/football_matches
 """
 
 #Set this to the highest performing model as defined in the previous section! 
-etc = GradientBoostingClassifier(n_estimators=50, min_samples_split=10, random_state=1)
+etc = RandomForestClassifier(n_estimators=50, min_samples_split=10, random_state=1)
 
 #Create a list of predictor variables adding venue code and opposition code to the list of previously created rolling averages.
 predictors = ["venue_code", "opp_code"] + new_cols
@@ -367,20 +372,20 @@ matches_rolling df to create predictions.
 """
 
 #create a dataframe of last 3 weeks of games
-future_matches = matches_rolling.groupby(["Team"]).tail(3)
+future_matches = matches_rolling.groupby(["Team"]).tail(4)
 print(future_matches["Team"].value_counts()) #Sanity check it is bringing in all teams last 3 games
 
 future_matches_predictors = future_matches[new_cols]
 
-future_matches_predictors_mean = future_matches_predictors.rolling(3, closed='left').mean() 
-future_matches_predictors_mean_1 = future_matches_predictors_mean.iloc[::3, :]
+future_matches_predictors_mean = future_matches_predictors.rolling(4, closed='left').mean() 
+future_matches_predictors_mean_1 = future_matches_predictors_mean.iloc[::4, :]
 
 #Set indexing column to go from 0 -> 
 future_matches_predictors_mean_1.index = range(future_matches_predictors_mean_1.shape[0])
 
 future_matches_predictors_mean_1 = future_matches_predictors_mean_1[1:]
 
-future_matches_predictors_mean_end = future_matches_predictors.tail(3).mean()
+future_matches_predictors_mean_end = future_matches_predictors.tail(4).mean()
 
 future_matches_predictors_mean_final = future_matches_predictors_mean_1.append(future_matches_predictors_mean_end,  ignore_index=True)
 
@@ -391,10 +396,14 @@ team_names = matches_rolling["Team"].unique()
 future_matches_predictors_mean_final.insert(0,"Team",team_names)
 
 #Bring in this weeks games (created manually externally)
-future_fixtures = pd.read_csv(r"C:\Users\tt13\football\fixtures.csv")
+#future_fixtures = pd.read_csv(r"C:\Users\tt13\football\fixtures.csv")
+
+future_fixtures = pd.read_csv('/Users/tom/Documents/python/football/football/fixtures.csv')
 
 #convert date column into datetime 
-future_fixtures["Date"] = pd.to_datetime(future_fixtures["Date"])
+future_fixtures["Date"] = pd.to_datetime(future_fixtures["Date"],yearfirst=True, dayfirst=True)
+
+# future_fixtures["Date"] = pd.to_datetime(future_fixtures["Date"], format ="%Y/%m/%d")
 
 #convert the string venue variable into integer categories and create a unique indicator for each outcome option. 0 = Away, 1 = Home
 future_fixtures["venue_code"] = future_fixtures["Venue"].astype("category").cat.codes
@@ -416,11 +425,14 @@ matches_rolling_short = matches_rolling[['Team', 'GF_rolling', 'GA_rolling', 'xG
 
 full_matches_dataset = pd.concat([matches_rolling_short,future_matches_predictors_mean_final_2])
 
+full_matches_dataset = full_matches_dataset.reset_index()
+
+# full_matches_dataset = full_matches_dataset.drop(columns=["index", "level_0"])
 
 #Create predicting function 
 def make_future_predictions(data, predictors):
-    train = data[data["Date"] < '2023-02-13']
-    test = data[data["Date"] > '2023-02-13']
+    train = data[data["Date"] < '2023-03-31']
+    test = data[data["Date"] > '2023-03-31']
     etc.fit(train[predictors], train["target"])
     preds = etc.predict(test[predictors])
     combined = pd.DataFrame(dict(actual=test["target"], predicted=preds), index=test.index)
@@ -431,7 +443,7 @@ def make_future_predictions(data, predictors):
 combined, error = make_future_predictions(full_matches_dataset, predictors)
 
 #Add some more useful information to the predictions for better understanding
-combined = combined.merge(full_matches_dataset[full_matches_dataset["Date"] > '2023-02-13'][["Date", "Team", "Opponent"]], left_index=True, right_index=True)
+combined = combined.merge(full_matches_dataset[full_matches_dataset["Date"] > '2023-03-31'][["Date", "Team", "Opponent"]], left_index=True, right_index=True)
 
 #Drop actual - as this has not happened
 combined = combined.drop("actual",axis=1)
@@ -442,3 +454,22 @@ combined["new_team"] = combined["Team"].map(mapping)
 merged = combined.merge(combined, left_on=["Date", "new_team"], right_on=["Date", "Opponent"])
 
 outcome = merged[(merged["predicted_x"] == 1) & (merged["predicted_y"] ==0)]
+
+outcome = outcome.reset_index()
+
+# Output results to text file 
+
+final_predictions =[]
+
+for i in outcome.index:
+    winner = outcome["Team_x"][i]
+    loser = outcome["Opponent_x"][i]
+    string = f"{winner} are predicted to beat {loser} this gameweek"
+    final_predictions.append('---------------------')
+    final_predictions.append("")
+    final_predictions.append(string)
+    final_predictions.append("")
+    final_predictions.append('---------------------')
+    
+final_predictions = pd.DataFrame(final_predictions)
+final_predictions.to_csv(r"final_predictions_20230331.csv")

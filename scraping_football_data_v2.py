@@ -149,7 +149,7 @@ for i in np.arange(0,5):
     print(i)
     time.sleep(10)
 
-
+time.sleep(30)
 
 
 #Loop 2, teams in team_url 6-10. 
@@ -217,7 +217,7 @@ for i in np.arange(5,10):
     time.sleep(10)
 
 
-
+time.sleep(30)
 
 #Loop 3, teams in team_url 11-15. 
 #Shooting Stats
@@ -283,7 +283,7 @@ for i in np.arange(10,15):
     print(i)
     time.sleep(10)
 
-
+time.sleep(30)
 
 
 #Loop 4, teams in team_url 16-20. 
@@ -360,8 +360,9 @@ print(match_df["Team"].value_counts())
 #created and dropped initial columns not needed. 
 
 #Save final df as a csv
-match_df.to_csv(r"C:\Users\tt13\football\matches_20230214.csv") #append today's date
+match_df.to_csv(r"C:\Users\tt13\football\matches_20230331.csv") #append today's date
 
+match_df.to_csv('/Users/tom/Documents/python/football/football/matches_20230331.csv') #append today's date
 
 
 
