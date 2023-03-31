@@ -320,7 +320,8 @@ https://github.com/dataquestio/project-walkthroughs/blob/master/football_matches
 """
 
 #Set this to the highest performing model as defined in the previous section! 
-etc = RandomForestClassifier(n_estimators=50, min_samples_split=10, random_state=1)
+# etc = GaussianNB(n_estimators=50, min_samples_split=10, random_state=1)
+etc = LogisticRegression()
 
 #Create a list of predictor variables adding venue code and opposition code to the list of previously created rolling averages.
 predictors = ["venue_code", "opp_code"] + new_cols
@@ -472,4 +473,4 @@ for i in outcome.index:
     final_predictions.append('---------------------')
     
 final_predictions = pd.DataFrame(final_predictions)
-final_predictions.to_csv(r"final_predictions_20230331.csv")
+# final_predictions.to_csv(r"final_predictions_20230331.csv")
