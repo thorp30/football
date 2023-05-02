@@ -362,7 +362,7 @@ print(match_df["Team"].value_counts())
 #Save final df as a csv
 # match_df.to_csv(r"C:\Users\tt13\football\matches_20230331.csv") #append today's date
 
-match_df.to_csv('/Users/tom/Documents/python/football/football/matches_20230407.csv') #append today's date
+match_df.to_csv('/Users/tom/Documents/python/football/football/matches_20230428.csv') #append today's date
 
 
 

@@ -55,7 +55,7 @@ from sklearn.ensemble import GradientBoostingClassifier
 # matches = pd.read_csv(r"C:\Users\tt13\football\matches_20230214.csv", index_col=0)
 
 #read in previously made csv file - home 
-matches = pd.read_csv('/Users/tom/Documents/python/football/football/matches_20230407.csv', index_col=0)
+matches = pd.read_csv('/Users/tom/Documents/python/football/football/matches_20230428.csv', index_col=0)
 
 
 
@@ -373,20 +373,20 @@ matches_rolling df to create predictions.
 """
 
 #create a dataframe of last 3 weeks of games
-future_matches = matches_rolling.groupby(["Team"]).tail(4)
+future_matches = matches_rolling.groupby(["Team"]).tail(3)
 print(future_matches["Team"].value_counts()) #Sanity check it is bringing in all teams last 3 games
 
 future_matches_predictors = future_matches[new_cols]
 
-future_matches_predictors_mean = future_matches_predictors.rolling(4, closed='left').mean() 
-future_matches_predictors_mean_1 = future_matches_predictors_mean.iloc[::4, :]
+future_matches_predictors_mean = future_matches_predictors.rolling(3, closed='left').mean() 
+future_matches_predictors_mean_1 = future_matches_predictors_mean.iloc[::3, :]
 
 #Set indexing column to go from 0 -> 
 future_matches_predictors_mean_1.index = range(future_matches_predictors_mean_1.shape[0])
 
 future_matches_predictors_mean_1 = future_matches_predictors_mean_1[1:]
 
-future_matches_predictors_mean_end = future_matches_predictors.tail(4).mean()
+future_matches_predictors_mean_end = future_matches_predictors.tail(3).mean()
 
 future_matches_predictors_mean_final = future_matches_predictors_mean_1.append(future_matches_predictors_mean_end,  ignore_index=True)
 
@@ -432,8 +432,8 @@ full_matches_dataset = full_matches_dataset.reset_index()
 
 #Create predicting function 
 def make_future_predictions(data, predictors):
-    train = data[data["Date"] < '2023-04-07']
-    test = data[data["Date"] > '2023-04-07']
+    train = data[data["Date"] < '2023-04-27']
+    test = data[data["Date"] > '2023-04-27']
     etc.fit(train[predictors], train["target"])
     preds = etc.predict(test[predictors])
     combined = pd.DataFrame(dict(actual=test["target"], predicted=preds), index=test.index)
@@ -444,7 +444,7 @@ def make_future_predictions(data, predictors):
 combined, error = make_future_predictions(full_matches_dataset, predictors)
 
 #Add some more useful information to the predictions for better understanding
-combined = combined.merge(full_matches_dataset[full_matches_dataset["Date"] > '2023-04-07'][["Date", "Team", "Opponent"]], left_index=True, right_index=True)
+combined = combined.merge(full_matches_dataset[full_matches_dataset["Date"] > '2023-04-27'][["Date", "Team", "Opponent"]], left_index=True, right_index=True)
 
 #Drop actual - as this has not happened
 combined = combined.drop("actual",axis=1)
@@ -473,4 +473,4 @@ for i in outcome.index:
     final_predictions.append('---------------------')
     
 final_predictions = pd.DataFrame(final_predictions)
-# final_predictions.to_csv(r"final_predictions_20230331.csv")
+final_predictions.to_csv(r"final_predictions_20230428.csv")
