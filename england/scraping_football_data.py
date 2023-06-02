@@ -19,6 +19,7 @@ import numpy as np
 import requests 
 from bs4 import BeautifulSoup
 import time 
+from datetime import date
 
 """ 
 
@@ -48,8 +49,8 @@ links = [l for l in links if '/squads/' in l]
 team_urls = [f"https://fbref.com{l}" for l in links]
 
 
-
 """
+
 This following section creates a simple lookup array listing the team name and thier unique lookup code
 
 """
@@ -68,8 +69,6 @@ for i in range(np.size(team_urls)):
 #Joining team name and codes to lookup on to create unique team url for data
 squad_team = np.column_stack((squad_code,team_name))
 
-
-
 """
 
 This following section uses a direct pd.read_html lookup onto the html and takes data from the 
@@ -79,7 +78,8 @@ dataframes which are then concatenated at the end to create one df with all data
 
 06/01/2023
 Due to a HTTP request error, I have split this up into 4 sepearte loops, as 1 loop of 20 teams was too much. All
-loops still append the df to the all_matches empty array. Sleep set 10 seems to stop this error from happening. 
+loops still append the df to the all_matches empty array. Sleep set 10 seems to stop this error from happening.
+Added in a seperate sleep command between loops, meaning the script can run in one go. 
 
 """
 
@@ -356,13 +356,18 @@ match_df = pd.concat(all_matches)
 #Print how many games each team have played to check this is up to date
 print(match_df["Team"].value_counts())
 
-#Save initial output df as and post process in seperate analysis script. Can get HTTPError if make too many requests, so save as soon as file 
-#created and dropped initial columns not needed. 
+#Save initial output df and post process in seperate analysis script. 
+#Can get HTTPError if make too many requests, so save as soon as file 
+#created to avoid losing data.
 
 #Save final df as a csv
-# match_df.to_csv(r"C:\Users\tt13\football\matches_20230331.csv") #append today's date
+#write to csv to local directory with today's date appended to the file name
+today = str(date.today())
+match_df.to_csv('/Users/tom/Documents/python/football/football/matches_'+today+'.csv')
 
-match_df.to_csv('/Users/tom/Documents/python/football/football/matches_20230527.csv') #append today's date
+
+
+
 
 
 

@@ -10,7 +10,7 @@ Created on Fri Jan  6 16:00:49 2023
 
 This script:
     
-    takes a csv file of information relating to football matches (output from scraping_football_data_v2.py)
+    takes a csv file of information relating to football matches (output from scraping_football_data.py)
     
     formats the data into a more usable design
     
@@ -29,6 +29,7 @@ import pandas as pd
 import numpy as np
 from matplotlib import pyplot
 import os
+from datetime import date
 
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.ensemble import RandomForestClassifier
@@ -51,13 +52,10 @@ from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.ensemble import AdaBoostClassifier
 from sklearn.ensemble import GradientBoostingClassifier
 
-#read in previously made csv file - work 
-# matches = pd.read_csv(r"C:\Users\tt13\football\matches_20230214.csv", index_col=0)
-
-#read in previously made csv file - home 
-matches = pd.read_csv('/Users/tom/Documents/python/football/football/matches_20230519.csv', index_col=0)
-
-
+#read in previously made csv file using today's date - as this will be the most up to date data. If the dated csv file does not exist,
+#then enter the relevant csv manually. 
+today = str(date.today())
+matches = pd.read_csv('/Users/tom/Documents/python/football/football_ML/england/matches_csv/matches_'+today+'.csv', index_col=0)
 
 """
 
@@ -88,7 +86,7 @@ matches["result_code"] = matches["Result"].astype("category").cat.codes
 """
 
 This next section undertakes feature selection. This enables automatic selection of the features within the data that contribute most 
-to the predictor variable to be selected. Feature selection can lead to a reduction in overfitting, imrpove model accuracy and reduce training
+to the predictor variable to be selected. Feature selection can lead to a reduction in overfitting, improve model accuracy and reduce training
 time if there is a large dataset. This will be done to pick out further variables to train the ML algorithm. 
 
 First feature selection undertaken is univariate selection 
@@ -131,9 +129,6 @@ for i in np.arange(np.size(predictor_loc)):
 importance_by_chi_df = pd.DataFrame(fit.scores_,matches.columns[predictor_loc]).sort_values(by=[0],ascending=False)
 
 
-
-
-
 #Undertaking Feature importance with Extra Trees Classifier.  
 #This uses the same predictor_variables and target_variable from previous example
 
@@ -153,8 +148,8 @@ importance_by_extra_trees_df = pd.DataFrame(model.feature_importances_,matches.c
 """
 
 Based on the results from the previous section, we will now create new variables which provide rolling averages for the most important
-variables determined by the feature selection process. This process is designed to account for form, and can provide variables for 
-future predictions where the result is unknown. 
+variables determined by the feature selection process. This rolling variable process is designed to account for form, and can provide 
+variables for future predictions where the result is unknown. 
 
 """
 
@@ -250,7 +245,6 @@ results_std = results.std()*100
 print(f"Accuracy of {results_mean} %, with a std of {results_std}")
 
 
-
 """
 
 This next section compares multiple machine learning algorithms on the dataset. These provide examples of a range of model
@@ -326,23 +320,6 @@ etc = LogisticRegression()
 #Create a list of predictor variables adding venue code and opposition code to the list of previously created rolling averages.
 predictors = ["venue_code", "opp_code"] + new_cols
 
-
-#Create predicting function 
-# def make_predictions(data, predictors):
-#     train = data[data["Date"] < '2022-11-25']
-#     test = data[data["Date"] > '2022-11-25']
-#     etc.fit(train[predictors], train["target"])
-#     preds = etc.predict(test[predictors])
-#     combined = pd.DataFrame(dict(actual=test["target"], predicted=preds), index=test.index)
-#     error = precision_score(test["target"], preds)
-#     return combined, error
-
-#use the make predictions function to...... make predictions
-#combined, error = make_predictions(matches_rolling, predictors)
-
-#Add some more useful information to the predictions for better understanding
-#combined = combined.merge(matches_rolling[["Date", "Team", "Opponent", "Result"]], left_index=True, right_index=True)
-
 #Create a dictionary then use the pandas map function to match all teams names. Then apply to combined. 
 #For example Brighton and Hove Albion -> Brighton. This allows for team and opponent to be called the same, and can be merged on. 
 class MissingDict(dict):
@@ -352,16 +329,6 @@ map_values = {"Brighton and Hove Albion": "Brighton", "Manchester United": "Manc
               "Nottingham Forest":"Nott'ham Forest" , "Tottenham Hotspur": "Tottenham", "West Ham United": "West Ham",
               "Wolverhampton Wanderers": "Wolves"} 
 mapping = MissingDict(**map_values)
-
-#combined["new_team"] = combined["Team"].map(mapping)
-
-#Merge df on itself to tidy up, and match up on duplicate predections (i.e. H v A and A v H)
-#merged = combined.merge(combined, left_on=["Date", "new_team"], right_on=["Date", "Opponent"])
-
-#outcome = merged[(merged["predicted_x"] == 1) & (merged["predicted_y"] ==0)]["actual_x"].value_counts()
-
-#accuracy = (outcome[1]/np.sum((outcome[1],outcome[0])))*100
-
 
 """
 
@@ -376,30 +343,42 @@ matches_rolling df to create predictions.
 future_matches = matches_rolling.groupby(["Team"]).tail(3)
 print(future_matches["Team"].value_counts()) #Sanity check it is bringing in all teams last 3 games
 
+#Dataframe of last 3 games but just for the predictor variables
 future_matches_predictors = future_matches[new_cols]
 
-future_matches_predictors_mean = future_matches_predictors.rolling(3, closed='left').mean() 
+#Create a rolling average of the last 3 games for each predictor variable as a new row
+future_matches_predictors_mean = future_matches_predictors.rolling(3, closed='left').mean()
+
+#Take every 3rd row to get the mean of the last 3 games
 future_matches_predictors_mean_1 = future_matches_predictors_mean.iloc[::3, :]
 
 #Set indexing column to go from 0 -> 
 future_matches_predictors_mean_1.index = range(future_matches_predictors_mean_1.shape[0])
 
+#Drop first row as this is just the mean of the first 2 games which is NaN
 future_matches_predictors_mean_1 = future_matches_predictors_mean_1[1:]
 
+#Take the last 3 rows and get the mean of these
 future_matches_predictors_mean_end = future_matches_predictors.tail(3).mean()
 
+#Append the mean values to the end of the previous dataframe
 future_matches_predictors_mean_final = future_matches_predictors_mean_1.append(future_matches_predictors_mean_end,  ignore_index=True)
 
 #Create List of Unique Team names to re append
 team_names = matches_rolling["Team"].unique()
 
-#Prepend team names to dataframe 
+#Prepend team names to dataframe. This now includes all team names, and the last 3 games rolling average value for each predictor variable
 future_matches_predictors_mean_final.insert(0,"Team",team_names)
 
-#Bring in this weeks games (created manually externally)
-#future_fixtures = pd.read_csv(r"C:\Users\tt13\football\fixtures.csv")
+"""
 
-future_fixtures = pd.read_csv('/Users/tom/Documents/python/football/football/fixtures.csv')
+Bring in the next weeks fixtures, and get these into the correct format to 
+then append to the bottom of the future_matches_predictors_mean_final df.
+
+"""
+
+#Bring in this weeks games (created externally)
+future_fixtures = pd.read_csv('/Users/tom/Documents/python/football/football_ML/england/fixtures.csv')
 
 #convert date column into datetime 
 future_fixtures["Date"] = pd.to_datetime(future_fixtures["Date"],yearfirst=True, dayfirst=True)
@@ -415,8 +394,10 @@ future_fixtures["opp_code"] = future_fixtures["Opponent"].astype("category").cat
 #Create a target column, which is when the result column shows W (0,1 for L, W) 
 future_fixtures["target"] = (future_fixtures["Target"] == "W").astype("int")
 
-
+#Merge the future fixtures with the mean predictor variables from the rolling averages
 future_matches_predictors_mean_final_2 = pd.merge(future_matches_predictors_mean_final,future_fixtures, left_on='Team',right_on='Team')
+
+#Drop the target column as this is not needed
 future_matches_predictors_mean_final_2 = future_matches_predictors_mean_final_2.drop("Target",axis=1)
 
 #Now append "new future data" to previous data. 
@@ -424,8 +405,10 @@ future_matches_predictors_mean_final_2 = future_matches_predictors_mean_final_2.
 #Take just the columns we will be using 
 matches_rolling_short = matches_rolling[['Team', 'GF_rolling', 'GA_rolling', 'xG_x_rolling', 'Poss_rolling','SoT_rolling', 'xA_rolling', 'Err_rolling', 'KP_rolling', 'Cmp_rolling','PrgP_rolling', 'PPA_rolling', 'Att Pen_rolling', 'Clr_rolling','Recov_rolling', 'Fls_rolling', 'result_code_rolling', 'Date','Opponent', 'Venue', 'venue_code', 'opp_code', 'target']]
 
+#Append the new data to the bottom of the old data
 full_matches_dataset = pd.concat([matches_rolling_short,future_matches_predictors_mean_final_2])
 
+#Reset the index
 full_matches_dataset = full_matches_dataset.reset_index()
 
 # full_matches_dataset = full_matches_dataset.drop(columns=["index", "level_0"])
@@ -449,19 +432,22 @@ combined = combined.merge(full_matches_dataset[full_matches_dataset["Date"] > '2
 #Drop actual - as this has not happened
 combined = combined.drop("actual",axis=1)
 
+#Use the mapping dictionary to map the team names to the correct team names
 combined["new_team"] = combined["Team"].map(mapping)
 
 #Merge df on itself to tidy up, and match up on duplicate predections (i.e. H v A and A v H)
 merged = combined.merge(combined, left_on=["Date", "new_team"], right_on=["Date", "Opponent"])
 
+#Create variable where the predicted outcome is the same for both teams
 outcome = merged[(merged["predicted_x"] == 1) & (merged["predicted_y"] ==0)]
 
+#Reset index
 outcome = outcome.reset_index()
 
+#Set the date column
 outcome['Date'] = outcome['Date'].dt.strftime('%d/%m/%Y')
 
-# Output results to text file 
-
+# Output results to text file for easy reading externally
 final_predictions =[]
 
 for i in outcome.index:
@@ -474,5 +460,8 @@ for i in outcome.index:
     final_predictions.append("")
     final_predictions.append('---------------------')
     
+#Create dataframe of final predictions
 final_predictions = pd.DataFrame(final_predictions)
-final_predictions.to_csv(r"final_predictions_20230527.csv")
+
+#Export to csv with todays date
+final_predictions.to_csv(r'final_predictions_'+today+'.csv')
