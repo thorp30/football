@@ -55,7 +55,7 @@ from sklearn.ensemble import GradientBoostingClassifier
 # matches = pd.read_csv(r"C:\Users\tt13\football\matches_20230214.csv", index_col=0)
 
 #read in previously made csv file - home 
-matches = pd.read_csv('/Users/tom/Documents/python/football/football/matches_20230505.csv', index_col=0)
+matches = pd.read_csv('/Users/tom/Documents/python/football/football/matches_20230519.csv', index_col=0)
 
 
 
@@ -432,8 +432,8 @@ full_matches_dataset = full_matches_dataset.reset_index()
 
 #Create predicting function 
 def make_future_predictions(data, predictors):
-    train = data[data["Date"] < '2023-05-05']
-    test = data[data["Date"] > '2023-05-05']
+    train = data[data["Date"] < '2023-05-27']
+    test = data[data["Date"] > '2023-05-27']
     etc.fit(train[predictors], train["target"])
     preds = etc.predict(test[predictors])
     combined = pd.DataFrame(dict(actual=test["target"], predicted=preds), index=test.index)
@@ -444,7 +444,7 @@ def make_future_predictions(data, predictors):
 combined, error = make_future_predictions(full_matches_dataset, predictors)
 
 #Add some more useful information to the predictions for better understanding
-combined = combined.merge(full_matches_dataset[full_matches_dataset["Date"] > '2023-05-05'][["Date", "Team", "Opponent"]], left_index=True, right_index=True)
+combined = combined.merge(full_matches_dataset[full_matches_dataset["Date"] > '2023-05-27'][["Date", "Team", "Opponent"]], left_index=True, right_index=True)
 
 #Drop actual - as this has not happened
 combined = combined.drop("actual",axis=1)
@@ -475,4 +475,4 @@ for i in outcome.index:
     final_predictions.append('---------------------')
     
 final_predictions = pd.DataFrame(final_predictions)
-final_predictions.to_csv(r"final_predictions_20230505.csv")
+final_predictions.to_csv(r"final_predictions_20230527.csv")
