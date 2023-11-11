@@ -1,20 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Tuesday 02/05/2023
+Created on Thu Sep 29 22:22:51 2022
 
 @author: tom
 """
 
 # -*- coding: utf-8 -*-
 """
-Python script created by Tom Thorp 02/05/2023. 
+Python script created by Tom Thorp 04/09/2022. 
 This script reads in stats about a football league, and sorts them into panda dataframes,
 saving them in csv output for further use in external scripts (e.g. plotting and ML). 
-
-This is an updated version of the script originally written for the English Premier League, to
-work for the Brazilian Serie A. 
-
 """
 
 # Importing libraries
@@ -23,6 +19,7 @@ import numpy as np
 import requests 
 from bs4 import BeautifulSoup
 import time 
+from datetime import date
 
 """ 
 
@@ -32,7 +29,7 @@ This provides the unique team url to scrape intial match data for each team in u
 
 """
 # Defining the url of the website, directing to league specific stats tab.
-url = "https://fbref.com/en/comps/24/Serie-A-Stats"
+url = "https://fbref.com/en/comps/11/Serie-A-Stats"
 
 #Using requests to make html request 
 data = requests.get(url)
@@ -52,8 +49,8 @@ links = [l for l in links if '/squads/' in l]
 team_urls = [f"https://fbref.com{l}" for l in links]
 
 
-
 """
+
 This following section creates a simple lookup array listing the team name and thier unique lookup code
 
 """
@@ -72,8 +69,6 @@ for i in range(np.size(team_urls)):
 #Joining team name and codes to lookup on to create unique team url for data
 squad_team = np.column_stack((squad_code,team_name))
 
-
-
 """
 
 This following section uses a direct pd.read_html lookup onto the html and takes data from the 
@@ -83,7 +78,8 @@ dataframes which are then concatenated at the end to create one df with all data
 
 06/01/2023
 Due to a HTTP request error, I have split this up into 4 sepearte loops, as 1 loop of 20 teams was too much. All
-loops still append the df to the all_matches empty array. Sleep set 10 seems to stop this error from happening. 
+loops still append the df to the all_matches empty array. Sleep set 10 seems to stop this error from happening.
+Added in a seperate sleep command between loops, meaning the script can run in one go. 
 
 """
 
@@ -100,7 +96,7 @@ for i in np.arange(0,5):
     matches = pd.read_html(data.text, match="Scores & Fixtures")[0]
     
     #Shooting stats
-    temp_shooting = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023/matchlogs/all_comps/shooting/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
+    temp_shooting = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023-2024/matchlogs/all_comps/shooting/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
     temp_shooting.columns = temp_shooting.columns.droplevel()
     try:
         team_data = matches.merge(temp_shooting[["Date", "Sh", "SoT", "Dist", "G-xG", "xG"]], on="Date")
@@ -109,7 +105,7 @@ for i in np.arange(0,5):
 
 
     #Passing Stats 
-    temp_pass = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023/matchlogs/all_comps/passing/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
+    temp_pass = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023-2024/matchlogs/all_comps/passing/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
     temp_pass.columns = temp_pass.columns.droplevel()
     try:
         team_data = team_data.merge(temp_pass[["Date", "Cmp", "xA", "KP", "1/3", "PPA", "PrgP"]], on="Date")
@@ -118,7 +114,7 @@ for i in np.arange(0,5):
 
 
     #Possession Stats   
-    temp_poss = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023/matchlogs/all_comps/possession/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
+    temp_poss = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023-2024/matchlogs/all_comps/possession/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
     temp_poss.columns = temp_poss.columns.droplevel()
     try:
         team_data = team_data.merge(temp_poss[["Date", "Def Pen", "Att Pen", "Succ%"]], on="Date")
@@ -127,7 +123,7 @@ for i in np.arange(0,5):
 
 
     #Misc Stats  
-    temp_misc = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023/matchlogs/all_comps/misc/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
+    temp_misc = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023-2024/matchlogs/all_comps/misc/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
     temp_misc.columns = temp_misc.columns.droplevel()
     try:
         team_data = team_data.merge(temp_misc[["Date", "CrdY", "CrdR", "Fls", "Fld", "Off", "TklW", "Recov"]], on="Date")
@@ -136,7 +132,7 @@ for i in np.arange(0,5):
 
 
     #Def Stats  
-    temp_defence = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023/matchlogs/all_comps/defense/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
+    temp_defence = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023-2024/matchlogs/all_comps/defense/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
     temp_defence.columns = temp_defence.columns.droplevel()
     try:
         team_data = team_data.merge(temp_defence[["Date", "Int", "Clr", "Err"]], on="Date")
@@ -145,7 +141,7 @@ for i in np.arange(0,5):
     
     
     #only select matches where they are in the premier leage
-    team_data = team_data[team_data["Comp"] == "Série A"]
+    team_data = team_data[team_data["Comp"] == "Premier League"]
     
     #Add a column to the df naming the team 
     team_data["Team"] = squad_team[i][1].replace("-", " ")
@@ -167,7 +163,7 @@ for i in np.arange(5,10):
     matches = pd.read_html(data.text, match="Scores & Fixtures")[0]
     
     #Shooting stats
-    temp_shooting = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023/matchlogs/all_comps/shooting/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
+    temp_shooting = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023-2024/matchlogs/all_comps/shooting/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
     temp_shooting.columns = temp_shooting.columns.droplevel()
     try:
         team_data = matches.merge(temp_shooting[["Date", "Sh", "SoT", "Dist", "G-xG", "xG"]], on="Date")
@@ -176,7 +172,7 @@ for i in np.arange(5,10):
 
 
     #Passing Stats 
-    temp_pass = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023/matchlogs/all_comps/passing/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
+    temp_pass = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023-2024/matchlogs/all_comps/passing/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
     temp_pass.columns = temp_pass.columns.droplevel()
     try:
         team_data = team_data.merge(temp_pass[["Date", "Cmp", "xA", "KP", "1/3", "PPA", "PrgP"]], on="Date")
@@ -185,7 +181,7 @@ for i in np.arange(5,10):
 
 
     #Possession Stats   
-    temp_poss = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023/matchlogs/all_comps/possession/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
+    temp_poss = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023-2024/matchlogs/all_comps/possession/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
     temp_poss.columns = temp_poss.columns.droplevel()
     try:
         team_data = team_data.merge(temp_poss[["Date", "Def Pen", "Att Pen", "Succ%"]], on="Date")
@@ -194,7 +190,7 @@ for i in np.arange(5,10):
 
 
     #Misc Stats  
-    temp_misc = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023/matchlogs/all_comps/misc/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
+    temp_misc = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023-2024/matchlogs/all_comps/misc/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
     temp_misc.columns = temp_misc.columns.droplevel()
     try:
         team_data = team_data.merge(temp_misc[["Date", "CrdY", "CrdR", "Fls", "Fld", "Off", "TklW", "Recov"]], on="Date")
@@ -203,7 +199,7 @@ for i in np.arange(5,10):
 
 
     #Def Stats  
-    temp_defence = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023/matchlogs/all_comps/defense/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
+    temp_defence = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023-2024/matchlogs/all_comps/defense/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
     temp_defence.columns = temp_defence.columns.droplevel()
     try:
         team_data = team_data.merge(temp_defence[["Date", "Int", "Clr", "Err"]], on="Date")
@@ -212,7 +208,7 @@ for i in np.arange(5,10):
     
     
     #only select matches where they are in the premier leage
-    team_data = team_data[team_data["Comp"] == "Série A"]
+    team_data = team_data[team_data["Comp"] == "Premier League"]
     
     #Add a column to the df naming the team 
     team_data["Team"] = squad_team[i][1].replace("-", " ")
@@ -234,7 +230,7 @@ for i in np.arange(10,15):
     matches = pd.read_html(data.text, match="Scores & Fixtures")[0]
     
     #Shooting stats
-    temp_shooting = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023/matchlogs/all_comps/shooting/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
+    temp_shooting = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023-2024/matchlogs/all_comps/shooting/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
     temp_shooting.columns = temp_shooting.columns.droplevel()
     try:
         team_data = matches.merge(temp_shooting[["Date", "Sh", "SoT", "Dist", "G-xG", "xG"]], on="Date")
@@ -243,7 +239,7 @@ for i in np.arange(10,15):
 
 
     #Passing Stats 
-    temp_pass = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023/matchlogs/all_comps/passing/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
+    temp_pass = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023-2024/matchlogs/all_comps/passing/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
     temp_pass.columns = temp_pass.columns.droplevel()
     try:
         team_data = team_data.merge(temp_pass[["Date", "Cmp", "xA", "KP", "1/3", "PPA", "PrgP"]], on="Date")
@@ -252,7 +248,7 @@ for i in np.arange(10,15):
 
 
     #Possession Stats   
-    temp_poss = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023/matchlogs/all_comps/possession/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
+    temp_poss = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023-2024/matchlogs/all_comps/possession/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
     temp_poss.columns = temp_poss.columns.droplevel()
     try:
         team_data = team_data.merge(temp_poss[["Date", "Def Pen", "Att Pen", "Succ%"]], on="Date")
@@ -261,7 +257,7 @@ for i in np.arange(10,15):
 
 
     #Misc Stats  
-    temp_misc = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023/matchlogs/all_comps/misc/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
+    temp_misc = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023-2024/matchlogs/all_comps/misc/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
     temp_misc.columns = temp_misc.columns.droplevel()
     try:
         team_data = team_data.merge(temp_misc[["Date", "CrdY", "CrdR", "Fls", "Fld", "Off", "TklW", "Recov"]], on="Date")
@@ -270,7 +266,7 @@ for i in np.arange(10,15):
 
 
     #Def Stats  
-    temp_defence = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023/matchlogs/all_comps/defense/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
+    temp_defence = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023-2024/matchlogs/all_comps/defense/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
     temp_defence.columns = temp_defence.columns.droplevel()
     try:
         team_data = team_data.merge(temp_defence[["Date", "Int", "Clr", "Err"]], on="Date")
@@ -279,7 +275,7 @@ for i in np.arange(10,15):
     
     
     #only select matches where they are in the premier leage
-    team_data = team_data[team_data["Comp"] == "Série A"]
+    team_data = team_data[team_data["Comp"] == "Premier League"]
     
     #Add a column to the df naming the team 
     team_data["Team"] = squad_team[i][1].replace("-", " ")
@@ -301,7 +297,7 @@ for i in np.arange(15,20):
     matches = pd.read_html(data.text, match="Scores & Fixtures")[0]
     
     #Shooting stats
-    temp_shooting = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023/matchlogs/all_comps/shooting/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
+    temp_shooting = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023-2024/matchlogs/all_comps/shooting/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
     temp_shooting.columns = temp_shooting.columns.droplevel()
     try:
         team_data = matches.merge(temp_shooting[["Date", "Sh", "SoT", "Dist", "G-xG", "xG"]], on="Date")
@@ -310,7 +306,7 @@ for i in np.arange(15,20):
 
 
     #Passing Stats 
-    temp_pass = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023/matchlogs/all_comps/passing/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
+    temp_pass = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023-2024/matchlogs/all_comps/passing/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
     temp_pass.columns = temp_pass.columns.droplevel()
     try:
         team_data = team_data.merge(temp_pass[["Date", "Cmp", "xA", "KP", "1/3", "PPA", "PrgP"]], on="Date")
@@ -319,7 +315,7 @@ for i in np.arange(15,20):
 
 
     #Possession Stats   
-    temp_poss = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023/matchlogs/all_comps/possession/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
+    temp_poss = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023-2024/matchlogs/all_comps/possession/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
     temp_poss.columns = temp_poss.columns.droplevel()
     try:
         team_data = team_data.merge(temp_poss[["Date", "Def Pen", "Att Pen", "Succ%"]], on="Date")
@@ -328,7 +324,7 @@ for i in np.arange(15,20):
 
 
     #Misc Stats  
-    temp_misc = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023/matchlogs/all_comps/misc/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
+    temp_misc = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023-2024/matchlogs/all_comps/misc/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
     temp_misc.columns = temp_misc.columns.droplevel()
     try:
         team_data = team_data.merge(temp_misc[["Date", "CrdY", "CrdR", "Fls", "Fld", "Off", "TklW", "Recov"]], on="Date")
@@ -337,7 +333,7 @@ for i in np.arange(15,20):
 
 
     #Def Stats  
-    temp_defence = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023/matchlogs/all_comps/defense/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
+    temp_defence = pd.read_html("https://fbref.com/en/squads/"+squad_team[i][0]+"/2023-2024/matchlogs/all_comps/defense/"+squad_team[i][1]+"-Match-Logs-All-Competitions")[0]
     temp_defence.columns = temp_defence.columns.droplevel()
     try:
         team_data = team_data.merge(temp_defence[["Date", "Int", "Clr", "Err"]], on="Date")
@@ -346,7 +342,7 @@ for i in np.arange(15,20):
     
     
     #only select matches where they are in the premier leage
-    team_data = team_data[team_data["Comp"] == "Série A"]
+    team_data = team_data[team_data["Comp"] == "Premier League"]
     
     #Add a column to the df naming the team 
     team_data["Team"] = squad_team[i][1].replace("-", " ")
@@ -360,13 +356,18 @@ match_df = pd.concat(all_matches)
 #Print how many games each team have played to check this is up to date
 print(match_df["Team"].value_counts())
 
-#Save initial output df as and post process in seperate analysis script. Can get HTTPError if make too many requests, so save as soon as file 
-#created and dropped initial columns not needed. 
+#Save initial output df and post process in seperate analysis script. 
+#Can get HTTPError if make too many requests, so save as soon as file 
+#created to avoid losing data.
 
 #Save final df as a csv
-# match_df.to_csv(r"C:\Users\tt13\football\matches_20230331.csv") #append today's date
+#write to csv to local directory with today's date appended to the file name
+today = str(date.today())
+match_df.to_csv('/Users/tom/Documents/python/football/football_ML/italy/matches_'+today+'.csv')
 
-match_df.to_csv('/Users/tom/Documents/python/football/brazil/brazil_matches_20230502.csv') #append today's date
+
+
+
 
 
 

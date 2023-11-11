@@ -29,6 +29,7 @@ import pandas as pd
 import numpy as np
 from matplotlib import pyplot
 import os
+from datetime import date
 
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.ensemble import RandomForestClassifier
@@ -51,19 +52,20 @@ from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.ensemble import AdaBoostClassifier
 from sklearn.ensemble import GradientBoostingClassifier
 
-#read in previously made csv file - work 
-# matches = pd.read_csv(r"C:\Users\tt13\football\matches_20230214.csv", index_col=0)
+#read in previously made csv file using today's date - as this will be the most up to date data. If the dated csv file does not exist,
+#then enter the relevant csv manually. 
 
 
 # Read in historic season data for 2021 and 2022
-matches_2021 = pd.read_csv('/Users/tom/Documents/python/football/brazil/brazil_matches_2021.csv', index_col=0)
-matches_2022 = pd.read_csv('/Users/tom/Documents/python/football/brazil/brazil_matches_2022.csv', index_col=0)
+#matches_2021 = pd.read_csv('/Users/tom/Documents/python/football/brazil/brazil_matches_2021.csv', index_col=0)
+#matches_2022 = pd.read_csv('/Users/tom/Documents/python/football/brazil/brazil_matches_2022.csv', index_col=0)
 
 # Read in the matches for this season so far
-matches_2023 = pd.read_csv('/Users/tom/Documents/python/football/brazil/brazil_matches_20230502.csv', index_col=0)
+today = str(date.today())
+matches = pd.read_csv('/Users/tom/Documents/python/football/football_ML/brazil/matches_csv/brazil_matches_'+today+'.csv', index_col=0)
 
 # Concat all 3 csv files together into 1
-matches = matches_2021.append([matches_2022,matches_2023])
+#matches = matches_2021.append([matches_2022,matches_2023])
 
 """
 
@@ -89,7 +91,6 @@ matches["target"] = (matches["Result"] == "W").astype("int")
 
 #convert the string result variable into integer categories (0,1,2 for L,D,W)
 matches["result_code"] = matches["Result"].astype("category").cat.codes
-
 
 """
 
@@ -135,9 +136,6 @@ for i in np.arange(np.size(predictor_loc)):
     
 #put into simple df, so we can sort by importance     
 importance_by_chi_df = pd.DataFrame(fit.scores_,matches.columns[predictor_loc]).sort_values(by=[0],ascending=False)
-
-
-
 
 
 #Undertaking Feature importance with Extra Trees Classifier.  
@@ -238,7 +236,6 @@ result_percent = result *100
 print(f"Accuracy of {result_percent} %")
 
 
-
 #This method uses the K-Fold cross-validation method. This works by splitting the dataset into k-parts (e.g. k=5), and 
 #each split is called a fold. The model is trained on k-1 folds with one held back to be tested upon. This is repeated so each 
 #fold is held back to be the test dataset. 
@@ -254,7 +251,6 @@ results_mean = results.mean()*100
 results_std = results.std()*100
 
 print(f"Accuracy of {results_mean} %, with a std of {results_std}")
-
 
 
 """
@@ -332,23 +328,6 @@ etc = LogisticRegression()
 #Create a list of predictor variables adding venue code and opposition code to the list of previously created rolling averages.
 predictors = ["venue_code", "opp_code"] + new_cols
 
-
-#Create predicting function 
-# def make_predictions(data, predictors):
-#     train = data[data["Date"] < '2022-11-25']
-#     test = data[data["Date"] > '2022-11-25']
-#     etc.fit(train[predictors], train["target"])
-#     preds = etc.predict(test[predictors])
-#     combined = pd.DataFrame(dict(actual=test["target"], predicted=preds), index=test.index)
-#     error = precision_score(test["target"], preds)
-#     return combined, error
-
-#use the make predictions function to...... make predictions
-#combined, error = make_predictions(matches_rolling, predictors)
-
-#Add some more useful information to the predictions for better understanding
-#combined = combined.merge(matches_rolling[["Date", "Team", "Opponent", "Result"]], left_index=True, right_index=True)
-
 #Create a dictionary then use the pandas map function to match all teams names. Then apply to combined. 
 #For example Brighton and Hove Albion -> Brighton. This allows for team and opponent to be called the same, and can be merged on. 
 class MissingDict(dict):
@@ -358,16 +337,6 @@ map_values = {"America MG": "América (MG)", "Atletico Goianiense": "Atl Goianie
               "Atletico Paranaense":"Atl Paranaense" , "Avai": "Avaí", "Botafogo RJ": "Botafogo (RJ)",
               "Ceara": "Ceará", "Cuiaba": "Cuiabá" , "Goias": "Goiás" , "Gremio": "Grêmio" , "Sao Paulo": "São Paulo"} 
 mapping = MissingDict(**map_values)
-
-#combined["new_team"] = combined["Team"].map(mapping)
-
-#Merge df on itself to tidy up, and match up on duplicate predections (i.e. H v A and A v H)
-#merged = combined.merge(combined, left_on=["Date", "new_team"], right_on=["Date", "Opponent"])
-
-#outcome = merged[(merged["predicted_x"] == 1) & (merged["predicted_y"] ==0)]["actual_x"].value_counts()
-
-#accuracy = (outcome[1]/np.sum((outcome[1],outcome[0])))*100
-
 
 """
 
@@ -382,30 +351,38 @@ matches_rolling df to create predictions.
 future_matches = matches_rolling.groupby(["Team"]).tail(3)
 print(future_matches["Team"].value_counts()) #Sanity check it is bringing in all teams last 3 games
 
+#Dataframe of last 3 games but just for the predictor variables
 future_matches_predictors = future_matches[new_cols]
 
-future_matches_predictors_mean = future_matches_predictors.rolling(3, closed='left').mean() 
+#Create a rolling average of the last 3 games for each predictor variable as a new row
+future_matches_predictors_mean = future_matches_predictors.rolling(3, closed='left').mean()
+
+#Take every 3rd row to get the mean of the last 3 games
 future_matches_predictors_mean_1 = future_matches_predictors_mean.iloc[::3, :]
 
 #Set indexing column to go from 0 -> 
 future_matches_predictors_mean_1.index = range(future_matches_predictors_mean_1.shape[0])
 
+#Drop first row as this is just the mean of the first 2 games which is NaN
 future_matches_predictors_mean_1 = future_matches_predictors_mean_1[1:]
 
+#Take the last 3 rows and get the mean of these
 future_matches_predictors_mean_end = future_matches_predictors.tail(3).mean()
 
+#Append the mean values to the end of the previous dataframe
 future_matches_predictors_mean_final = future_matches_predictors_mean_1.append(future_matches_predictors_mean_end,  ignore_index=True)
 
 #Create List of Unique Team names to re append
 team_names = matches_rolling["Team"].unique()
 
-#Prepend team names to dataframe 
+#Prepend team names to dataframe. This now includes all team names, and the last 3 games rolling average value for each predictor variable
 future_matches_predictors_mean_final.insert(0,"Team",team_names)
+
 
 #Bring in this weeks games (created manually externally)
 #future_fixtures = pd.read_csv(r"C:\Users\tt13\football\fixtures.csv")
 
-future_fixtures = pd.read_csv('/Users/tom/Documents/python/football/brazil/fixtures.csv')
+future_fixtures = pd.read_csv('/Users/tom/Documents/python/football/football_ML/brazil/fixtures.csv')
 
 #convert date column into datetime 
 future_fixtures["Date"] = pd.to_datetime(future_fixtures["Date"],yearfirst=True, dayfirst=True)
@@ -421,8 +398,10 @@ future_fixtures["opp_code"] = future_fixtures["Opponent"].astype("category").cat
 #Create a target column, which is when the result column shows W (0,1 for L, W) 
 future_fixtures["target"] = (future_fixtures["Target"] == "W").astype("int")
 
-
+#Merge the future fixtures with the mean predictor variables from the rolling averages
 future_matches_predictors_mean_final_2 = pd.merge(future_matches_predictors_mean_final,future_fixtures, left_on='Team',right_on='Team')
+
+#Drop the target column as this is not needed
 future_matches_predictors_mean_final_2 = future_matches_predictors_mean_final_2.drop("Target",axis=1)
 
 #Now append "new future data" to previous data. 
@@ -430,8 +409,10 @@ future_matches_predictors_mean_final_2 = future_matches_predictors_mean_final_2.
 #Take just the columns we will be using 
 matches_rolling_short = matches_rolling[['Team', 'GF_rolling', 'GA_rolling', 'xG_x_rolling', 'xGA_rolling' , 'Dist_rolling' ,'Poss_rolling','SoT_rolling', 'xA_rolling', 'Err_rolling', 'KP_rolling', 'Cmp_rolling','PrgP_rolling', 'PPA_rolling', 'Att Pen_rolling', 'Clr_rolling','Recov_rolling', 'Fls_rolling', 'result_code_rolling', 'Date','Opponent', 'Venue', 'venue_code', 'opp_code', 'target']]
 
+#Append the new data to the bottom of the old data
 full_matches_dataset = pd.concat([matches_rolling_short,future_matches_predictors_mean_final_2])
 
+#Reset the index
 full_matches_dataset = full_matches_dataset.reset_index()
 
 # full_matches_dataset = full_matches_dataset.drop(columns=["index", "level_0"])
@@ -460,14 +441,16 @@ combined["new_team"] = combined["Team"].map(mapping)
 #Merge df on itself to tidy up, and match up on duplicate predections (i.e. H v A and A v H)
 merged = combined.merge(combined, left_on=["Date", "new_team"], right_on=["Date", "Opponent"])
 
+#Create variable where the predicted outcome is the same for both teams
 outcome = merged[(merged["predicted_x"] == 1) & (merged["predicted_y"] ==0)]
 
+#Reset index
 outcome = outcome.reset_index()
 
+#Set the date column
 outcome['Date'] = outcome['Date'].dt.strftime('%d/%m/%Y')
 
-# Output results to text file 
-
+# Output results to text file for easy reading externally
 final_predictions =[]
 
 for i in outcome.index:
@@ -479,6 +462,9 @@ for i in outcome.index:
     final_predictions.append(string)
     final_predictions.append("")
     final_predictions.append('---------------------')
-    
+
+ #Create dataframe of final predictions
 final_predictions = pd.DataFrame(final_predictions)
-final_predictions.to_csv("/Users/tom/Documents/python/football/brazil/final_predictions_03052023.csv")
+
+#Export to csv with todays date
+final_predictions.to_csv('/Users/tom/Documents/python/football/football_ML/brazil/final_predictions_'+today+'.csv')

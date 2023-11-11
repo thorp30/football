@@ -30,7 +30,6 @@ import numpy as np
 from matplotlib import pyplot
 import os
 from datetime import date
-from datetime import timedelta 
 
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.ensemble import RandomForestClassifier
@@ -55,10 +54,7 @@ from sklearn.ensemble import GradientBoostingClassifier
 
 #read in previously made csv file using today's date - as this will be the most up to date data. If the dated csv file does not exist,
 #then enter the relevant csv manually. 
-today = date.today()
-yesterday = today - timedelta(days = 2)
-today = str(today)
-
+today = str(date.today())
 matches = pd.read_csv('/Users/tom/Documents/python/football/football_ML/england/matches_'+today+'.csv', index_col=0)
 
 """
@@ -166,7 +162,7 @@ grouped_matches = matches.groupby("Team")
 
 def rolling_averages(group, cols, new_cols):
     group = group.sort_values("Date")
-    rolling_stats = group[cols].rolling(3, closed='left').mean()
+    rolling_stats = group[cols].rolling(2, closed='left').mean()
     group[new_cols] = rolling_stats
     group = group.dropna(subset=new_cols)
     return group
@@ -317,7 +313,7 @@ https://github.com/dataquestio/project-walkthroughs/blob/master/football_matches
 
 #Set this to the highest performing model as defined in the previous section! 
 # etc = GaussianNB(n_estimators=50, min_samples_split=10, random_state=1)
-etc = GaussianNB()
+etc = DecisionTreeClassifier()
 
 #Create a list of predictor variables adding venue code and opposition code to the list of previously created rolling averages.
 predictors = ["venue_code", "opp_code"] + new_cols
@@ -342,17 +338,17 @@ matches_rolling df to create predictions.
 """
 
 #create a dataframe of last 3 weeks of games
-future_matches = matches_rolling.groupby(["Team"]).tail(3)
+future_matches = matches_rolling.groupby(["Team"]).tail(2)
 print(future_matches["Team"].value_counts()) #Sanity check it is bringing in all teams last 3 games
 
 #Dataframe of last 3 games but just for the predictor variables
 future_matches_predictors = future_matches[new_cols]
 
 #Create a rolling average of the last 3 games for each predictor variable as a new row
-future_matches_predictors_mean = future_matches_predictors.rolling(3, closed='left').mean()
+future_matches_predictors_mean = future_matches_predictors.rolling(2, closed='left').mean()
 
 #Take every 3rd row to get the mean of the last 3 games
-future_matches_predictors_mean_1 = future_matches_predictors_mean.iloc[::3, :]
+future_matches_predictors_mean_1 = future_matches_predictors_mean.iloc[::2, :]
 
 #Set indexing column to go from 0 -> 
 future_matches_predictors_mean_1.index = range(future_matches_predictors_mean_1.shape[0])
@@ -361,7 +357,7 @@ future_matches_predictors_mean_1.index = range(future_matches_predictors_mean_1.
 future_matches_predictors_mean_1 = future_matches_predictors_mean_1[1:] # This stays as 1
 
 #Take the last 3 rows and get the mean of these
-future_matches_predictors_mean_end = future_matches_predictors.tail(3).mean()
+future_matches_predictors_mean_end = future_matches_predictors.tail(2).mean()
 
 #Append the mean values to the end of the previous dataframe
 future_matches_predictors_mean_final = future_matches_predictors_mean_1.append(future_matches_predictors_mean_end,  ignore_index=True)
@@ -418,8 +414,8 @@ full_matches_dataset = full_matches_dataset.reset_index()
 
 #Create predicting function 
 def make_future_predictions(data, predictors):
-    train = data[data["Date"] < str(yesterday)]
-    test = data[data["Date"] > str(yesterday)]
+    train = data[data["Date"] < '2023-09-22']
+    test = data[data["Date"] > '2023-09-22']
     etc.fit(train[predictors], train["target"])
     preds = etc.predict(test[predictors])
     combined = pd.DataFrame(dict(actual=test["target"], predicted=preds), index=test.index)
@@ -430,7 +426,7 @@ def make_future_predictions(data, predictors):
 combined, error = make_future_predictions(full_matches_dataset, predictors)
 
 #Add some more useful information to the predictions for better understanding
-combined = combined.merge(full_matches_dataset[full_matches_dataset["Date"] > str(yesterday)][["Date", "Team", "Opponent"]], left_index=True, right_index=True)
+combined = combined.merge(full_matches_dataset[full_matches_dataset["Date"] > '2023-09-22'][["Date", "Team", "Opponent"]], left_index=True, right_index=True)
 
 #Drop actual - as this has not happened
 combined = combined.drop("actual",axis=1)
