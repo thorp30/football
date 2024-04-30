@@ -39,6 +39,7 @@ from sklearn.metrics import precision_score
 from sklearn.feature_selection import SelectKBest
 from sklearn.feature_selection import chi2
 from sklearn.ensemble import ExtraTreesClassifier
+
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import KFold
@@ -158,7 +159,7 @@ variables for future predictions where the result is unknown.
 
 #The next section creates 2-match rolling variables to account for form
 
-#create a seperate dataframe for each team, and group these 
+#create a seperate dataframe for each team, and group these by team
 grouped_matches = matches.groupby("Team")
 
 #Create a function which takes each team in grouped_matches and creates additional 3 match rolling averages for each team for all
@@ -173,7 +174,7 @@ def rolling_averages(group, cols, new_cols):
 
 
 #Choose variables to compute rolling averages - these are taken from feature selection process rankings
-cols = ["GF", "GA", "xG_x", "Poss", "SoT", "xA", "Err" , "KP", "Cmp", "PrgP", "PPA", "Att Pen", "Clr", "Recov","Fls" ,"result_code"]
+cols = ["GF", "GA", "xG_x", "Poss", "SoT", "xA", "Err" , "KP", "PrgP", "PPA", "Att Pen", "Clr", "Recov","Fls" ,"result_code"]
 new_cols = [f"{c}_rolling" for c in cols]
 
 #Apply rolling averages to all teams grouped by Team variable
@@ -317,7 +318,7 @@ https://github.com/dataquestio/project-walkthroughs/blob/master/football_matches
 
 #Set this to the highest performing model as defined in the previous section! 
 # etc = GaussianNB(n_estimators=50, min_samples_split=10, random_state=1)
-etc = GaussianNB()
+etc = RandomForestClassifier()
 
 #Create a list of predictor variables adding venue code and opposition code to the list of previously created rolling averages.
 predictors = ["venue_code", "opp_code"] + new_cols
